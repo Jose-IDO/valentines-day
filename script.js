@@ -106,8 +106,55 @@
   document.addEventListener('pointermove', onPointerMove, { passive: true });
   btnNo.addEventListener('click', onNoClick);
 
+  const base = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL ? import.meta.env.BASE_URL : '/';
+  const successImages = [
+    '439985618_406584505658969_8730764371049834117_n.webp',
+    '448298190_994561415517353_4361469687287586555_n.webp',
+    'WhatsApp Image 2026-02-12 at 19.13.27 (1).jpeg',
+    'WhatsApp Image 2026-02-12 at 19.13.27.jpeg',
+  ].map(function (f) { return base + f; });
+
+  const floatingHeartsEl = document.getElementById('floatingHearts');
+  const successVideo = document.querySelector('.success-video');
+
+  function spawnFloatingHeart() {
+    if (!floatingHeartsEl || floatingHeartsEl.closest('.hidden')) return;
+    const heart = document.createElement('div');
+    heart.className = 'float-heart';
+    const img = document.createElement('img');
+    img.src = successImages[Math.floor(Math.random() * successImages.length)];
+    img.alt = '';
+    heart.appendChild(img);
+    const leftPct = 5 + Math.random() * 90;
+    const duration = 10 + Math.random() * 10;
+    const delay = Math.random() * 2;
+    const rotate = (Math.random() - 0.5) * 20;
+    heart.style.left = leftPct + '%';
+    heart.style.animation = 'floatUp ' + duration + 's linear ' + delay + 's forwards';
+    heart.style.setProperty('--rotate', rotate + 'deg');
+    floatingHeartsEl.appendChild(heart);
+    setTimeout(function () {
+      if (heart.parentNode) heart.remove();
+    }, (duration + delay) * 1000 + 500);
+  }
+
+  function scheduleNextHeart() {
+    const delay = 400 + Math.random() * 1800;
+    setTimeout(function () {
+      spawnFloatingHeart();
+      scheduleNextHeart();
+    }, delay);
+  }
+
   btnYes.addEventListener('click', function () {
     successOverlay.classList.remove('hidden');
+    if (successVideo) {
+      successVideo.play().catch(function () {});
+    }
+    floatingHeartsEl.innerHTML = '';
+    spawnFloatingHeart();
+    spawnFloatingHeart();
+    scheduleNextHeart();
   });
 
   // Re-init position on resize
