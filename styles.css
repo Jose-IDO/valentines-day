@@ -284,6 +284,24 @@ body {
   }
 }
 
+/* Web: banner slides down further so it doesn't block faces */
+@media (min-width: 769px) {
+  .success-content {
+    animation: slideDownInWeb 0.7s ease 0.15s both;
+  }
+}
+
+@keyframes slideDownInWeb {
+  from {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(200px);
+  }
+}
+
 .success-heart {
   font-size: 4rem;
   display: block;
