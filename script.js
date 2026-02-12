@@ -112,6 +112,8 @@
     '448298190_994561415517353_4361469687287586555_n.webp',
     'WhatsApp Image 2026-02-12 at 19.13.27 (1).jpeg',
     'WhatsApp Image 2026-02-12 at 19.13.27.jpeg',
+    'WhatsApp Image 2026-02-12 at 19.03.18.jpeg',
+    'WhatsApp Image 2026-02-12 at 19.13.42 (1).jpeg',
   ].map(function (f) { return base + f; });
 
   const floatingHeartsEl = document.getElementById('floatingHearts');
